@@ -1,0 +1,9 @@
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/X_norm.csv       ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/y.csv            ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/X_norm_64.csv       ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/y_64.csv            ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/X_norm_1024.csv       ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/y_1024.csv            ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/X_norm_37264.csv            ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/y_37264.csv            ${CMAKE_CURRENT_BINARY_DIR}/. COPYONLY)
+

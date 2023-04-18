@@ -1,0 +1,48 @@
+.ipynb_checkpoints
+cmake-build-debug/
+.idea
+build/
+results/*
+small_results/*
+py_scripts/train_step_debugger-cpp-validation.ipynb
+__pycache__
+py_scripts/approxResults.txt
+
+.cproject
+.metadata/
+.project
+.settings/
+
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
