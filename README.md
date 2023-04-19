@@ -1,11 +1,8 @@
-# OpenFHE CKKS Logistic Regression
+# Logistic Regression Training Examples using CKKS
 
-This repository provides examples of **non-production-ready** logistic regression training in the OpenFHE library. This implementation uses the
-[Nesterov-accelerated gradient descent](https://jlmelville.github.io/mize/nesterov.html).
+This repository provides examples of how to perform the training of logistic regression models on data encrypted by FHE using the OpenFHE library. This implementation is intended for demonstrations of how to use OpenFHE for model training.  The examples are intended to be used for illustrative purposes only, and not for benchmarking.  There are many much more efficient approaches to logistic regression training that either use [proprietary designs](https://dualitytech.com) or aren't as good for illustrative examples.  The specific approach we use here is based on [Nesterov-accelerated gradient descent](https://jlmelville.github.io/mize/nesterov.html).
 
-**Note:** These examples were developed as part of the DARPA DPRIVE program. 
-They are solely for research purposes and should not be used for production purposes. Although the examples were developed 
-by Duality Technologies, they are not related to privacy-preserving logistic regression training capabilities available in the Duality products.
+**Note** These examples were developed as part of the DARPA DPRIVE program.  They are solely for research purposes and should not be used for benchmarking or production purposes where performance is critical. Although the sample code was contributed by [Duality Technologies](https://www.dualitytech.com), this sample code is not related to the privacy-preserving logistic regression training capabilities provided in past, present or future Duality Technology products.
 
 # Table of Contents
 
@@ -224,6 +221,10 @@ Contains the data files. We prototyped on `(X_norm_64, y_64)` and then validated
 moving to the full-scale `(X_norm_32764, y_32764)`
 
 `reduceDataset.py` subsamples the dataset to make the number of true cases and false cases to be equal.
+
+# Contributors
+
+These examples were mainly developed by Ian Quah, with some contributions/suggestions from Ahmad Al Badawi, David Bruce Cousins, and Yuriy Polyakov.
 
 # Acknowledgments
 
