@@ -1,4 +1,4 @@
-# Logistic Regression Training Examples using CKKS
+# Logistic Regression Training Examples using OpenFHE
 
 This repository provides examples of how to perform the training of logistic regression models on data encrypted by FHE using the OpenFHE library. This implementation is intended for demonstrations of how to use OpenFHE for model training.  The examples are intended to be used for illustrative purposes only, and not for benchmarking.  There are many much more efficient approaches to logistic regression training that either use [proprietary designs](https://dualitytech.com) or aren't as good for illustrative examples.  The specific approach we use here is based on [Nesterov-accelerated gradient descent](https://jlmelville.github.io/mize/nesterov.html).
 
