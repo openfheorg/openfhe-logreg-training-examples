@@ -94,9 +94,9 @@ Vec OneDMat2Vec(const Mat &inMat) {
   OPENFHE_DEBUGEXP(numRows);
   OPENFHE_DEBUGEXP(numCols);
   OPENFHE_DEBUG("in OneDMat2Vec");
-  if (dbg_flag) {
-    PrintMatrix(inMat);
-  }
+//  if (dbg_flag) {
+//    PrintMatrix(inMat);
+//  }
 
   if ((numCols != 1) && (numRows != 1))
     OPENFHE_THROW(lbcrypto::config_error,
@@ -146,9 +146,9 @@ CT OneDMat2CtVCC(CC &cc, const Mat &inMat, const int rowSize, const int numSlots
   Vec inVecCC;
   GetVecColCloned<double>(inVec, numSlots, 0.0, inVecCC);
   OPENFHE_DEBUG("after GetVecColCloned");
-  if (dbg_flag) {
-    PrintVecColCloned(inVecCC, colSize);
-  }
+//  if (dbg_flag) {
+//    PrintVecColCloned(inVecCC, colSize);
+//  }
   // make plaintext
   PT inVecCCPT = cc->MakeCKKSPackedPlaintext(inVecCC); // encode cloned vector
   //encrypt
@@ -167,9 +167,9 @@ Vec cloneVecRc(const Mat &inMat, const int rowSize, const int numSlots){
   auto inVec = OneDMat2Vec(inMat);
   int origNumRow = inVec.size();
   OPENFHE_DEBUGEXP(origNumRow);
-  auto colSize = numSlots / rowSize;
+  // auto colSize = numSlots / rowSize;
   OPENFHE_DEBUGEXP(rowSize);
-  OPENFHE_DEBUGEXP(colSize);
+  // OPENFHE_DEBUGEXP(colSize);
 
   if (origNumRow > rowSize) {
     OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
@@ -192,9 +192,9 @@ Vec cloneVecRc(const Mat &inMat, const int rowSize, const int numSlots){
   Vec inVecRC;
 
   GetVecRowCloned<double>(inVec, numSlots, 0.0, inVecRC);
-  if (dbg_flag) {
-    PrintVecRowCloned(inVecRC, rowSize); // note number of rows needed here.
-  }
+//  if (dbg_flag) {
+//    PrintVecRowCloned(inVecRC, rowSize); // note number of rows needed here.
+//  }
   return inVecRC;
 }
 
@@ -279,9 +279,9 @@ CT Mat2CtMRM(CC &cc, const Mat &inMat, const int rowSize, const int numSlots, co
   //convert that  that out into inRMZP
   OPENFHE_DEBUG("inRMZP in row major zero pad");
 
-  if (dbg_flag) {
-    PrintMatRowMajor(inRMZP, numCols);  //need to verify
-  }
+//  if (dbg_flag) {
+//    PrintMatRowMajor(inRMZP, numCols);  //need to verify
+//  }
   PT inPT = cc->MakeCKKSPackedPlaintext(inRMZP); // encode inPT plaintext matrix
   auto ctin = cc->Encrypt(keys.publicKey, inPT); //ciphertext in
   return ctin;
