@@ -102,11 +102,11 @@ int main() {
 
   parameters.SetMultiplicativeDepth(multDepth);
   lbcrypto::CryptoContext<lbcrypto::DCRTPoly> cc = GenCryptoContext(parameters);
-  cc->Enable(PKE);
-  cc->Enable(KEYSWITCH);
-  cc->Enable(LEVELEDSHE);
+  cc->Enable(lbcrypto::PKE);
+  cc->Enable(lbcrypto::KEYSWITCH);
+  cc->Enable(lbcrypto::LEVELEDSHE);
   // We need to enable Advanced SHE to use the Chebyshev approximation.
-  cc->Enable(ADVANCEDSHE);
+  cc->Enable(lbcrypto::ADVANCEDSHE);
 
   auto keyPair = cc->KeyGen();
   // We need to generate mult keys to run Chebyshev approximations.

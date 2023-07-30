@@ -177,8 +177,8 @@ int main(int argc, char *argv[]) {
   uint32_t dcrtBits = 59;
 #endif
   uint32_t batchSize = params.ringDimension / 2;
-  ScalingTechnique rsTech = FIXEDAUTO;
-  KeySwitchTechnique ksTech = HYBRID;
+  lbcrypto::ScalingTechnique rsTech = lbcrypto::FIXEDAUTO;
+  lbcrypto::KeySwitchTechnique ksTech = lbcrypto::HYBRID;
 
   CryptoParams parameters;
   std::vector<uint32_t> levelBudget;
@@ -189,7 +189,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Using Bootstrapping" << std::endl;
     // Params here set based on discussion in
     // https://github.com/openfheorg/openfhe-development/blob/main/src/pke/examples/advanced-ckks-bootstrapping.cpp
-    SecretKeyDist skDist = UNIFORM_TERNARY;
+    lbcrypto::SecretKeyDist skDist = lbcrypto::UNIFORM_TERNARY;
     // linear transform using 1 level is good for CKKS bootstrapping as the number of features is small (10)
     levelBudget = {2, 2};
     uint32_t levelsBeforeBootstrap = 14;
@@ -251,9 +251,9 @@ int main(int argc, char *argv[]) {
   cc = GenCryptoContext(parameters);
 
   // Enable the features that you wish to use.
-  cc->Enable(PKE);
-  cc->Enable(LEVELEDSHE);
-  cc->Enable(ADVANCEDSHE);
+  cc->Enable(lbcrypto::PKE);
+  cc->Enable(lbcrypto::LEVELEDSHE);
+  cc->Enable(lbcrypto::ADVANCEDSHE);
 
   if (!cc) {
     std::cout << "Error generating CKKS context... " << std::endl;
@@ -324,7 +324,7 @@ int main(int argc, char *argv[]) {
   auto numFeaturesEnc = NextPow2(originalNumFeat);
   auto numSlotsBoot = numFeaturesEnc * 8;
   if (params.withBT) {
-    cc->Enable(FHE);
+    cc->Enable(lbcrypto::FHE);
     cc->EvalBootstrapSetup(levelBudget, bsgsDim, numSlotsBoot);
     cc->EvalBootstrapKeyGen(keys.secretKey, numSlotsBoot);
   }
