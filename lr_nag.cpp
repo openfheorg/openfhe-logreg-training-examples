@@ -196,8 +196,11 @@ int main(int argc, char *argv[]) {
     uint32_t approxBootstrapDepth = 8;
 
 #if NATIVEINT == 64
-    // Add an extra level based on empirical run results. We've encountered an error of
-    //"DCRTPolyImpl's towers are not initialized" and this addition solves that.
+    // In 64-bit CKKS bootstrapping, we add one extra level (for an extra scaling) for iterative bootstrapping.
+    // We have previously encountered an error of "DCRTPolyImpl's towers are not initialized" and this addition
+    // addresses that.
+    // See https://github.com/openfheorg/openfhe-development/blob/main/src/pke/examples/iterative-ckks-bootstrapping.cpp
+    // for more information on iterative bootstrapping
     levelsBeforeBootstrap++;
 #endif
 
@@ -347,6 +350,7 @@ int main(int argc, char *argv[]) {
       // If we are in the 64-bit case, we may want to run bootstrapping twice
       //    As this will increase our precision, which will make our results
       //    more in-line with the 128-bit version
+      // See https://github.com/openfheorg/openfhe-development/blob/main/src/pke/examples/iterative-ckks-bootstrapping.cpp
       if (params.btPrecision > 0){
         std::cout << "Running double-bootstrapping at: " << params.btPrecision << " precision" << std::endl;
         ctWeights = cc->EvalBootstrap(ctWeights, 2, params.btPrecision);
