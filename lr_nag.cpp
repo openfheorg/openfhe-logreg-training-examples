@@ -59,6 +59,8 @@ std::string TEST_Y_FILE_DEF = "train_data/y.csv";
 uint32_t RING_DIM_DEF(1 << 17);
 float LR_GAMMA(0.1);  // Learning Rate
 float LR_ETA(0.1);   // Learning Rate
+bool WITH_COMPOSITESCALING(false);
+bool WITH_DBPRECISION_CS(false);
 
 // Note: the ranges were chosen based on empirical observations.
 //    Depending on your application, the estimation ranges may change.
@@ -124,7 +126,8 @@ int main(int argc, char *argv[]) {
   Parameters params{};
   params.populateParams(argc, argv, NUM_ITERS_DEF, WITH_BT_DEF, ROWS_TO_READ_DEF,
                         TRAIN_X_FILE_DEF, TRAIN_Y_FILE_DEF, TEST_X_FILE_DEF, TEST_Y_FILE_DEF,
-                        RING_DIM_DEF, WRITE_EVERY, BOOTSTRAP_PRECISION_DEF, false
+                        RING_DIM_DEF, WRITE_EVERY, BOOTSTRAP_PRECISION_DEF, false, 
+                        WITH_COMPOSITESCALING, WITH_DBPRECISION_CS
   );
 
   /////////////////////////////////////////////////////////
@@ -179,6 +182,19 @@ int main(int argc, char *argv[]) {
   uint32_t batchSize = params.ringDimension / 2;
   lbcrypto::ScalingTechnique rsTech = lbcrypto::FIXEDAUTO;
   lbcrypto::KeySwitchTechnique ksTech = lbcrypto::HYBRID;
+
+  // Reset parameter values for COMPOSITESCALING scaling technique
+  uint32_t registerWordSize = 32;
+  if (params.withCS) {
+    rsTech = lbcrypto::COMPOSITESCALINGAUTO;
+    firstModSize = 96;
+    dcrtBits = 95;
+    params.ringDimension = (1 << 18);
+    if (params.dbPrecisionCS) {
+      registerWordSize = 64;
+    }
+    std::cout << "Using Composite Scaling Technique with " << registerWordSize << "-bit register size." << std::endl; 
+  }
 
   CryptoParams parameters;
   std::vector<uint32_t> levelBudget;
@@ -246,6 +262,8 @@ int main(int argc, char *argv[]) {
   parameters.SetNumLargeDigits(numLargeDigits);
   parameters.SetFirstModSize(firstModSize);
   parameters.SetMaxRelinSkDeg(maxRelinSkDeg);
+  parameters.SetRegisterWordSize(registerWordSize);
+  
 
   CC cc;
   cc = GenCryptoContext(parameters);

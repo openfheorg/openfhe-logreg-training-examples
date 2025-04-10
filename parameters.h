@@ -59,7 +59,9 @@ class Parameters {
       uint32_t ringDimension_def,
       usint writeEvery_def,
       int btPrecision_def=0,
-      bool verbose = false
+      bool verbose = false,
+      bool withCompositeScaling = false,
+      bool doublePrecisionCS = false
   ) {
 
     std::string outFilePrefix_def = "../results/nag_";
@@ -78,8 +80,11 @@ class Parameters {
 
     outputPrecision = outputPrecision_def;
 
+    withCS = withCompositeScaling;
+    dbPrecisionCS = doublePrecisionCS;
+
     int opt;
-    while ((opt = getopt(argc, argv, "bmn:r:x:y:j:k:d:w:p:e:h")) != -1) {
+    while ((opt = getopt(argc, argv, "bmn:r:x:y:j:k:d:w:p:e:c:f:h")) != -1) {
       switch (opt) {
         case 'b':withBT = true;
           std::cout << "bootstrapping enabled" << std::endl;
@@ -112,12 +117,17 @@ class Parameters {
         case 'd': ringDimension = atoi(optarg);
           std::cout << "ringDimension: " << ringDimension << std::endl;
           break;
-
         case 'w':outFilePrefix = optarg;
           std::cout << "output File(s) prefix: " << outFilePrefix << std::endl;
           break;
         case 'p':outputPrecision = atoi(optarg);
           std::cout << "output precision: " << outputPrecision << std::endl;
+          break;
+        case 'c':withCS = true;
+          std::cout << "composite scaling technique enabled" << std::endl; 
+          break;
+        case 'f':dbPrecisionCS = true;
+          std::cout << "composite scaling register size is 64 bits" << std::endl;
           break;
         case 'h':
         default: /* '?' */
@@ -135,6 +145,8 @@ class Parameters {
                     << "  -d <ring dimension> [" << ringDimension_def << "]" << std::endl
                     << "  -w <output file name prefix> [" << outFilePrefix_def << "]" << std::endl
                     << "  -p <outputPrecision> [" << outputPrecision_def << "]" << std::endl
+                    << "  -c enable and run with composite scaling technique [" << (withCompositeScaling ? "true" : "false") << std::endl
+                    << "  -f register word size for composite scaling" << (doublePrecisionCS ? 64 : 32) << std::endl
                     << "  -h prints this message" << std::endl;
           std::exit(EXIT_FAILURE);
       }
@@ -159,6 +171,8 @@ class Parameters {
       std::cout << "\tIterations: " << numIters << std::endl;
       std::cout << "\tWrite Every: " << writeEvery << std::endl;
       std::cout << "\tUse Bootstrapping? " << withBT << std::endl;
+      std::cout << "\tUse Composite Scaling Tech? " << withCS << std::endl;
+      std::cout << "\tComposite Scaling HW Precision: " << ((dbPrecisionCS) ? 64 : 32) << std::endl;
       std::cout << "\tTraining samples to read: " << rowsToRead << std::endl;
       std::cout << "\tTraining X CSV file: " << trainXFile << std::endl;
       std::cout << "\tTraining y CSV file: " << trainYFile << std::endl;
@@ -192,6 +206,8 @@ class Parameters {
   std::string testLossOutFile;
   std::string lossOutFile;
   int btPrecision;
+  bool withCS;
+  bool dbPrecisionCS;
 };
 
 #endif //DPRIVE_ML__PARAMETERS_H_
