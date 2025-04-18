@@ -61,6 +61,7 @@ float LR_GAMMA(0.1);  // Learning Rate
 float LR_ETA(0.1);   // Learning Rate
 bool WITH_COMPOSITESCALING(false);
 bool WITH_DBPRECISION_CS(false);
+bool HIGHPRECISION_CS(false);
 
 // Note: the ranges were chosen based on empirical observations.
 //    Depending on your application, the estimation ranges may change.
@@ -127,7 +128,7 @@ int main(int argc, char *argv[]) {
   params.populateParams(argc, argv, NUM_ITERS_DEF, WITH_BT_DEF, ROWS_TO_READ_DEF,
                         TRAIN_X_FILE_DEF, TRAIN_Y_FILE_DEF, TEST_X_FILE_DEF, TEST_Y_FILE_DEF,
                         RING_DIM_DEF, WRITE_EVERY, BOOTSTRAP_PRECISION_DEF, false, 
-                        WITH_COMPOSITESCALING, WITH_DBPRECISION_CS
+                        WITH_COMPOSITESCALING, WITH_DBPRECISION_CS, HIGHPRECISION_CS
   );
 
   /////////////////////////////////////////////////////////
@@ -187,13 +188,14 @@ int main(int argc, char *argv[]) {
   uint32_t registerWordSize = 32;
   if (params.withCS) {
     rsTech = lbcrypto::COMPOSITESCALINGAUTO;
-    firstModSize = 91;
-    dcrtBits = 90;
-    params.ringDimension = (1 << 17);
+    if (params.hPrecisionCS) {
+      dcrtBits = 90;
+      firstModSize = 91;
+      securityLevel = lbcrypto::HEStd_NotSet;
+    }
     if (params.dbPrecisionCS) {
       registerWordSize = 64;
     }
-    securityLevel = lbcrypto::HEStd_NotSet;
     std::cout << "Using Composite Scaling Technique with " << registerWordSize << "-bit register size." << std::endl;
     std::cout << "Scaling factor: " << firstModSize << " (p0), " << dcrtBits << " (p)" << std::endl; 
     std::cout << "Lambda: " << std::to_string(securityLevel) << std::endl;

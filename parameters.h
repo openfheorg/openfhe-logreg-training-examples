@@ -61,7 +61,8 @@ class Parameters {
       int btPrecision_def=0,
       bool verbose = false,
       bool withCompositeScaling = false,
-      bool doublePrecisionCS = false
+      bool doublePrecisionCS = false,
+      bool highPrecisionCS = false
   ) {
 
     std::string outFilePrefix_def = "../results/nag_";
@@ -82,6 +83,7 @@ class Parameters {
 
     withCS = withCompositeScaling;
     dbPrecisionCS = doublePrecisionCS;
+    hPrecisionCS = highPrecisionCS;
 
     int opt;
     while ((opt = getopt(argc, argv, "bmn:r:x:y:j:k:d:w:p:e:c:f:h")) != -1) {
@@ -129,6 +131,9 @@ class Parameters {
         case 'f':dbPrecisionCS = true;
           std::cout << "composite scaling register size is 64 bits" << std::endl;
           break;
+        case 't':hPrecisionCS = true;
+          std::cout << "using (non-secure) high precision composite scaling" << std::endl;
+          break;
         case 'h':
         default: /* '?' */
           std::cerr << "Usage: " << std::endl
@@ -146,6 +151,7 @@ class Parameters {
                     << "  -w <output file name prefix> [" << outFilePrefix_def << "]" << std::endl
                     << "  -p <outputPrecision> [" << outputPrecision_def << "]" << std::endl
                     << "  -c enable and run with composite scaling technique [" << (withCompositeScaling ? "true" : "false") << std::endl
+                    << "  -t use high precision composite scaling [" << (highPrecisionCS ? "true" : "false") << std::endl
                     << "  -f register word size for composite scaling" << (doublePrecisionCS ? 64 : 32) << std::endl
                     << "  -h prints this message" << std::endl;
           std::exit(EXIT_FAILURE);
@@ -172,6 +178,7 @@ class Parameters {
       std::cout << "\tWrite Every: " << writeEvery << std::endl;
       std::cout << "\tUse Bootstrapping? " << withBT << std::endl;
       std::cout << "\tUse Composite Scaling Tech? " << withCS << std::endl;
+      std::cout << "\tUse High Precision Composite Scaling? " << hPrecisionCS << std::endl;
       std::cout << "\tComposite Scaling HW Precision: " << ((dbPrecisionCS) ? 64 : 32) << std::endl;
       std::cout << "\tTraining samples to read: " << rowsToRead << std::endl;
       std::cout << "\tTraining X CSV file: " << trainXFile << std::endl;
@@ -208,6 +215,7 @@ class Parameters {
   int btPrecision;
   bool withCS;
   bool dbPrecisionCS;
+  bool hPrecisionCS;
 };
 
 #endif //DPRIVE_ML__PARAMETERS_H_
