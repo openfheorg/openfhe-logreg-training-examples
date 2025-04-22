@@ -86,7 +86,7 @@ class Parameters {
     hPrecisionCS = highPrecisionCS;
 
     int opt;
-    while ((opt = getopt(argc, argv, "bmn:r:x:y:j:k:d:w:p:e:c:f:h")) != -1) {
+    while ((opt = getopt(argc, argv, "bmn:r:x:y:j:k:d:w:p:e:cmn:fmn:tmn:h")) != -1) {
       switch (opt) {
         case 'b':withBT = true;
           std::cout << "bootstrapping enabled" << std::endl;

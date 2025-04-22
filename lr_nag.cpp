@@ -188,14 +188,17 @@ int main(int argc, char *argv[]) {
   uint32_t registerWordSize = 32;
   if (params.withCS) {
     rsTech = lbcrypto::COMPOSITESCALINGAUTO;
+    
     if (params.hPrecisionCS) {
       dcrtBits = 90;
       firstModSize = 91;
       securityLevel = lbcrypto::HEStd_NotSet;
-    }
+    }    
+    
     if (params.dbPrecisionCS) {
       registerWordSize = 64;
-    }
+    } 
+
     std::cout << "Using Composite Scaling Technique with " << registerWordSize << "-bit register size." << std::endl;
     std::cout << "Scaling factor: " << firstModSize << " (p0), " << dcrtBits << " (p)" << std::endl; 
     std::cout << "Lambda: " << std::to_string(securityLevel) << std::endl;
