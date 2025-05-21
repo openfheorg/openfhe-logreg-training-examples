@@ -91,8 +91,7 @@ void GetVecRowCloned(
   size_t n = inVec.size();
 
   if (numSlots < n)
-    OPENFHE_THROW(lbcrypto::config_error,
-                  __FILE__ + std::string(" ") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") +
                       __FUNCTION__ + std::string(":") +
                       std::to_string(__LINE__) +
                       std::string("Error: numClones x vecSize > numSlots!"));
@@ -124,8 +123,7 @@ void GetVecColCloned(
 ) {
   size_t n = inVec.size();
   if (numSlots < n)
-    OPENFHE_THROW(lbcrypto::config_error,
-                  __FILE__ + std::string(" ") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") +
                       __FUNCTION__ + std::string(":") +
                       std::to_string(__LINE__) +
                       std::string("Error: numClones x vecSize > numSlots!"));

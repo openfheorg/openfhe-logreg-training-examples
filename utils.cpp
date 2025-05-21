@@ -99,8 +99,7 @@ Vec OneDMat2Vec(const Mat &inMat) {
 //  }
 
   if ((numCols != 1) && (numRows != 1))
-    OPENFHE_THROW(lbcrypto::config_error,
-                   __FILE__ + std::string(" ") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") +
                        __FUNCTION__ + std::string(":") +
                        std::to_string(__LINE__) +
                        std::string("Error: input Mat is not a row or column vector"));
@@ -127,7 +126,7 @@ CT OneDMat2CtVCC(CC &cc, const Mat &inMat, const int rowSize, const int numSlots
   OPENFHE_DEBUGEXP(rowSize);
   OPENFHE_DEBUGEXP(colSize);
   if (origLargestSize > colSize) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input vector largest dimension exceeds colSize"));
   }
@@ -137,7 +136,7 @@ CT OneDMat2CtVCC(CC &cc, const Mat &inMat, const int rowSize, const int numSlots
   }
   OPENFHE_DEBUG("after zero pad");
   if (!IsPow2(inVec.size())) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input vector non power of two"));
   }
@@ -172,7 +171,7 @@ Vec cloneVecRc(const Mat &inMat, const int rowSize, const int numSlots){
   // OPENFHE_DEBUGEXP(colSize);
 
   if (origNumRow > rowSize) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input vector # rows exceeds rowSize"));
   }
@@ -184,7 +183,7 @@ Vec cloneVecRc(const Mat &inMat, const int rowSize, const int numSlots){
   OPENFHE_DEBUGEXP(inVec.size());
 
   if (!IsPow2(inVec.size())) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input vector non power of two"));
   }
@@ -200,7 +199,7 @@ Vec cloneVecRc(const Mat &inMat, const int rowSize, const int numSlots){
 
 CT collateOneDMats2CtVRC(CC &cc, const Mat &inMat, const Mat &inMat2, const int rowSize, const int numSlots, const KeyPair &keys) {
   if (inMat2.size() != inMat.size() || inMat2[0].size() != inMat[0].size()){
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: 1D-Matrices to collate are not of the same size!"));
   }
@@ -242,12 +241,12 @@ CT Mat2CtMRM(CC &cc, const Mat &inMat, const int rowSize, const int numSlots, co
   OPENFHE_DEBUGEXP(numCols);
 
   if (origNumRows > numRows) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input matrix # rows exceeds numRows"));
   }
   if (origNumCols > numCols) {
-    OPENFHE_THROW(lbcrypto::config_error, __FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
+    OPENFHE_THROW(__FILE__ + std::string(" ") + __FUNCTION__ + std::string(":") +
         std::to_string(__LINE__) +
         std::string("Error: input matrix # cols exceeds numCols"));
   }
